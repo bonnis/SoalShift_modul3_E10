@@ -167,17 +167,159 @@ Ex: Agmal WakeUp_Status = 75
 
 
 ■Syarat Menggunakan Lebih dari 1 Thread
+
+###Jawab
+Deklarasi status awal dan pilihan menu
+```c
+status.agmal = 0;
+  status.iraj = 100;
+  printf("Fitur-fitur :\n");
+  printf("Tekan 1 untuk mengaktifkan fitur 'Agmal Ayo Bangun'\n");
+  printf("Tekan 2 untuk mengaktifkan fitur 'Iraj Ayo Tidur\n'");
+  printf("Tekan 3 untuk mengaktifkan fitur 'Menampilkan All status'\n");
+```
+Input menu yang akan dipilih dan jalankan thread. Untuk menu 3 makan cetak status masing-masing
+```c
+ scanf("%d", &input);
+
+      if(input == 1){
+          z =0;
+          pthread_create(&thread1, NULL, fungsi, &status);
+      }
+      else if(input ==2){
+          z=1;
+          pthread_create(&thread2, NULL, fungsi, &status);
+      }
+    
+      else if(input == 3){
+        printf("Agmal WakeUp_status %d\nIraj Spirit_status %d\n", status.agmal, status.iraj);
+      }
+ ```   
+ 
+ fungsi yang dijalankan thread 2 untuk mengrangi status iraj
+ ```c
+ if(berhentiI == 1){
+      sleep(10);
+      berhentiI=0;
+    }
+    else{
+      stat->iraj -= 20;
+      flagI++;
+
+      if(flagI == 3){
+        berhentiA =1;
+        printf("Agmal Ayo Bangun disabled 10 s\n");
+        flagI = 0;
+      }
+ ```
+ 
+ Fungsi thread 1 untuk menambah status agmal
+ ```c
+ if(berhentiA == 1){
+      sleep(10);
+      berhentiI=0;
+    }
+    else{
+      stat->agmal += 15;
+      flagA++;
+      if(flagA == 3){
+        berhentiI =1;
+        printf("Fitur Iraj Ayo Tidur disabled 10 s\n");
+        flagA = 0;
+```
+
+## Nomor 4
+### Soal
+Buatlah sebuah program C dimana dapat menyimpan list proses yang sedang berjalan (ps -aux) maksimal 10 list proses. Dimana awalnya list proses disimpan dalam di 2 file ekstensi .txt yaitu  SimpanProses1.txt di direktori /home/Document/FolderProses1 dan SimpanProses2.txt di direktori /home/Document/FolderProses2 , setelah itu masing2 file di  kompres zip dengan format nama file KompresProses1.zip dan KompresProses2.zip dan file SimpanProses1.txt dan SimpanProses2.txt akan otomatis terhapus, setelah itu program akan menunggu selama 15 detik lalu program akan mengekstrak kembali file KompresProses1.zip dan KompresProses2.zip 
+Dengan Syarat : 
+* Setiap list proses yang di simpan dalam masing-masing file .txt harus berjalan bersama-sama
+* Ketika mengkompres masing-masing file .txt harus berjalan bersama-sama
+* Ketika Mengekstrak file .zip juga harus secara bersama-sama
+* Ketika Telah Selesai melakukan kompress file .zip masing-masing file, maka program akan memberi pesan “Menunggu 15 detik untuk mengekstrak kembali”
+* Wajib Menggunakan Multithreading
+* Boleh menggunakan system
+
+### Jawab
+Solusinya adalah dengan melakukan multi threading lalu menggunakan system() untuk mengesekusi ps-aux lalu di pipe ke tail untuk mendapatkan 10 proses saja lalu dimasukkan ke dalam file, hasilnya lalu di zip dan dilakukan sleep selama 15 detik lalu di unzip kembali.   
+Karena 2 masalah serupa mesti dilakukan secara bersaaman, hal ini dilakukan dengan menggunakan multithreading
+
+## Nomor 5
+
+### Soal
+
+Angga, adik Jiwang akan berulang tahun yang ke sembilan pada tanggal 6 April besok. Karena lupa menabung, Jiwang tidak mempunyai uang sepeserpun untuk membelikan Angga kado. Kamu sebagai sahabat Jiwang ingin membantu Jiwang membahagiakan adiknya sehingga kamu menawarkan bantuan membuatkan permainan komputer sederhana menggunakan program C. Jiwang sangat menyukai idemu tersebut. Berikut permainan yang Jiwang minta.  
+1. Pemain memelihara seekor monster lucu dalam permainan. Pemain dapat  memberi nama pada monsternya.  
+2. Monster pemain memiliki hunger status yang berawal dengan nilai 200 (maksimalnya) dan nanti akan berkurang 5 tiap 10 detik.Ketika hunger status mencapai angka nol, pemain akan kalah. Hunger status dapat bertambah 15 apabila pemain memberi makan kepada monster, tetapi banyak makanan terbatas dan harus beli di Market.
+3. Monster pemain memiliki hygiene status yang berawal dari 100 dan nanti berkurang 10 tiap 30 detik. Ketika hygiene status mencapai angka nol, pemain akan kalah. Hygiene status' dapat bertambah 30 hanya dengan memandikan monster. Pemain dapat memandikannya setiap 20 detik(cooldownnya 20 detik).  
+4. Monster pemain memiliki health status yang berawal dengan nilai 300. Variabel ini bertambah (regenerasi)daa 5 setiap 10 detik ketika monster dalam keadaan standby.  
+5. Monster pemain dapat memasuki keadaan battle. Dalam keadaan ini, food status(fitur b), hygiene status'(fitur c), dan ‘regenerasi’(fitur d) tidak akan berjalan. Health status dari monster dimulai dari darah saat monster pemain memasuki battle. Monster pemain akan bertarung dengan monster NPC yang memiliki darah 100. Baik monster pemain maupun NPC memiliki serangan sebesar 20. Monster pemain dengan monster musuh akan menyerang secara bergantian.   
+6. Fitur shop, pemain dapat membeli makanan sepuas-puasnya selama stok di toko masih tersedia.  
+Pembeli (terintegrasi dengan game)
+Dapat mengecek stok makanan yang ada di toko.
+Jika stok ada, pembeli dapat membeli makanan.
+Penjual (terpisah)
+Bisa mengecek stok makanan yang ada di toko
+Penjual dapat menambah stok makanan.
+	Spesifikasi program:
+
+* Program mampu mendeteksi input berupa key press. (Program bisa berjalan tanpa perlu menekan tombol enter)
+* Program terdiri dari 3 scene yaitu standby, battle, dan shop.
+Pada saat berada di standby scene, program selalu menampilkan health status, hunger status, hygiene status, stok makanan tersisa, dan juga status kamar mandi (“Bath is ready” jika bisa digunakan, “Bath will be ready in [bath cooldown]s” jika sedang cooldown). Selain itu program selalu menampilkan 5 menu, yaitu memberi makan, mandi, battle, shop, dan exit. Contoh :
+
+      Standby Mode
+      Health : [health status]
+      Hunger : [hunger status]
+      Hygiene : [hygiene status]
+      Food left : [your food stock]
+      Bath will be ready in [cooldown]s
+      Choices
+      Eat
+      Bath
+      Battle
+      Shop
+      Exit
+
+Pada saat berada di battle scene, program selalu menampilkan health status milik pemain dan monster NPC. Selain itu, program selalu menampilkan 2 menu yaitu serang atau lari. Contoh :
+
+      Battle Mode
+      Monster’s Health : [health status]
+      Enemy’s Health : [enemy health status]
+      Choices
+      Attack
+      Run
+
+Pada saat berada di shop scene versi pembeli, program selalu menampilkan food stock toko dan milik pemain. Selain itu, program selalu menampilkan 2 menu yaitu beli dan kembali ke standby scene. Contoh :
+
+		Shop Mode
+		Shop food stock : [shop food stock]
+		Your food stock : [your food stock]
+		Choices
+            Buy
+            Back
+
+Pada program penjual, program selalu menampilkan food stock toko. Selain itu, program juga menampilkan 2 menu yaitu restock dan exit. Contoh :
+
+    Shop
+    Food stock : [shop food stock]
+    Choices
+    Restock
+    Exit
+
+Pastikan terminal hanya mendisplay status detik ini sesuai scene terkait (hint: menggunakan system(“clear”))
+
 ### Jawab
 
+dibuat 6 thread yang masing masing mengatur:
+* refresh scene
+* counter hygiene
+* counter hunger
+* counter health
+* coutner bath cooldown
+* scene organizer
+  
+refresh scene berguna untuk me-refresh output setiap detik  
+counter hygiene,hunger,health dan cooldown berguna untuk menghitung perubahan ke 4 nilai tersebut independen dari thread yang lain  
+Scene organizer berguna untuk mengatur masuknya input ke setiap scene  
 
+lalu dibuat program shop yang serupa dengan program ini, hanya saja memiliki satu scene dan tidak harus melakukan counter yang banyak, sehingga satu thread sudah cukup untuk program tersebut.
 
-##Nomor 4
-###Soal
-
-###Jawab
-
-
-##Nomor 5
-###Soal
-
-###Jawab
