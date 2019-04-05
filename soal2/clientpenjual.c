@@ -38,12 +38,7 @@ int main(int argc, char const *argv[]) {
     }
  while(1){
     scanf("%s", msg);
-    //printf("%s\n", &msg);
     send(sock , msg, strlen(msg) , 0 );
-    //send(sock , hello , strlen(hello) , 0 );
-    //printf("Hello message sent\n");
-    //valread = read( sock , buffer, 1024);
-    //printf("%s\n",buffer );
   }
     return 0;
 }
