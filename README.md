@@ -168,3 +168,61 @@ Ex: Agmal WakeUp_Status = 75
 
 ■Syarat Menggunakan Lebih dari 1 Thread
 ### Jawab
+Deklarasi status awal dan pilihan menu
+```c
+status.agmal = 0;
+  status.iraj = 100;
+  printf("Fitur-fitur :\n");
+  printf("Tekan 1 untuk mengaktifkan fitur 'Agmal Ayo Bangun'\n");
+  printf("Tekan 2 untuk mengaktifkan fitur 'Iraj Ayo Tidur\n'");
+  printf("Tekan 3 untuk mengaktifkan fitur 'Menampilkan All status'\n");
+```
+Input menu yang akan dipilih dan jalankan thread. Untuk menu 3 makan cetak status masing-masing
+```c
+ scanf("%d", &input);
+
+      if(input == 1){
+          z =0;
+          pthread_create(&thread1, NULL, fungsi, &status);
+      }
+      else if(input ==2){
+          z=1;
+          pthread_create(&thread2, NULL, fungsi, &status);
+      }
+    
+      else if(input == 3){
+        printf("Agmal WakeUp_status %d\nIraj Spirit_status %d\n", status.agmal, status.iraj);
+      }
+ ```   
+ 
+ fungsi yang dijalankan thread 2 untuk mengrangi status iraj
+ ```c
+ if(berhentiI == 1){
+      sleep(10);
+      berhentiI=0;
+    }
+    else{
+      stat->iraj -= 20;
+      flagI++;
+
+      if(flagI == 3){
+        berhentiA =1;
+        printf("Agmal Ayo Bangun disabled 10 s\n");
+        flagI = 0;
+      }
+ ```
+ 
+ Fungsi thread 1 untuk menambah status agmal
+ ```c
+ if(berhentiA == 1){
+      sleep(10);
+      berhentiI=0;
+    }
+    else{
+      stat->agmal += 15;
+      flagA++;
+      if(flagA == 3){
+        berhentiI =1;
+        printf("Fitur Iraj Ayo Tidur disabled 10 s\n");
+        flagA = 0;
+```
