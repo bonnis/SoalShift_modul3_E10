@@ -84,7 +84,67 @@ f.Server pembeli akan mengirimkan info ke client yang terhubung dengannya apakah
 g.Server penjual akan mencetak stok saat ini setiap 5 detik sekali
 h.Menggunakan thread, socket, shared memory
 ### Jawab
+a. Server penjual
+Pada thread pertama terdapat perulangan untuk menerima pesan dan ketika pesan bertuliskan "tambah", maka stok akan ditambah
+```c
+ while(1){
+      valread = read( new_socket , buffer, 1024);
+      if(strcmp(buffer,"tambah")==0){
+        *stock += 1;
+      }
+   }
+```
+Pada thread kedua menjalankan perulangan untuk mencetak stok saat ini selama lima detik
+```c
+while(1){
+      printf("Stock saat ini %d\n", *stock);
+      sleep(5);
+    }
+  }
+```
 
+b. Server pembeli
+Pada client pembeli menjalankan perulangan untuk menerima pesan dari client pembeli. Ketika pesan berupa "beli" maka stok akan dikurangi satu. Ketika stok lebih dari 0, maka cetak "transaksi berhasil", jika tidak cetak "transaksi gagal"
+```c
+while(1){
+      valread = read( new_socket , buffer, 1024);
+      if(strcmp(buffer,"beli")==0){
+        if(*stock-1 < 0){
+          send(new_socket , gagal, strlen(gagal) , 0 );
+        }
+else{
+          *stock -= 1;
+          send(new_socket , berhasil, strlen(berhasil) , 0 );
+        }
+      }
+   }
+```
+
+c. Client penjual
+Hanya mengirim pesan untuk menambah stok
+```c
+while(1){
+    scanf("%s", msg);
+    send(sock , msg, strlen(msg) , 0 );
+  }
+```
+
+d. Client pembeli
+Mengirim pesan "beli" dan menerima pesan balasan dari server pembeli
+```c
+while(1){
+      valread = read( new_socket , buffer, 1024);
+      if(strcmp(buffer,"beli")==0){
+        if(*stock-1 < 0){
+          send(new_socket , gagal, strlen(gagal) , 0 );
+        }
+else{
+          *stock -= 1;
+          send(new_socket , berhasil, strlen(berhasil) , 0 );
+        }
+      }
+   }
+```
 ## Nomor 3
 ### Soal
 3.Agmal dan Iraj merupakan 2 sahabat yang sedang kuliah dan hidup satu kostan, sayangnya mereka mempunyai gaya hidup yang berkebalikan, dimana Iraj merupakan laki-laki yang sangat sehat,rajin berolahraga dan bangun tidak pernah kesiangan sedangkan Agmal hampir menghabiskan setengah umur hidupnya hanya untuk tidur dan ‘ngoding’. Dikarenakan mereka sahabat yang baik, Agmal dan iraj sama-sama ingin membuat satu sama lain mengikuti gaya hidup mereka dengan cara membuat Iraj sering tidur seperti Agmal, atau membuat Agmal selalu bangun pagi seperti Iraj. Buatlah suatu program C untuk menggambarkan kehidupan mereka dengan spesifikasi sebagai berikut:
