@@ -70,21 +70,21 @@ for (int i=1; i<=N->n; i++){
 ```
 ## Nomor 2
 ### Soal
-Pada suatu hari ada orang yang ingin berjualan 1 jenis barang secara private, dia memintamu membuat program C dengan spesifikasi sebagai berikut:
-a. Terdapat 2 server: server penjual dan server pembeli
-b. 1 server hanya bisa terkoneksi dengan 1 client
-c. Server penjual dan server pembeli memiliki stok barang yang selalu sama
-d. Client yang terkoneksi ke server penjual hanya bisa menambah stok
-1. Cara menambah stok: client yang terkoneksi ke server penjual mengirim string “tambah” ke server lalu stok bertambah 1
-e. Client yang terkoneksi ke server pembeli hanya bisa mengurangi stok
-2. Cara mengurangi stok: client yang terkoneksi ke server pembeli mengirim string “beli” ke server lalu stok berkurang 1
-f. Server pembeli akan mengirimkan info ke client yang terhubung dengannya apakah transaksi berhasil atau tidak berdasarkan ketersediaan stok
-3. Jika stok habis maka client yang terkoneksi ke server pembeli akan mencetak “transaksi gagal”
-4. Jika stok masih ada maka client yang terkoneksi ke server pembeli akan mencetak “transaksi berhasil”
-g. Server penjual akan mencetak stok saat ini setiap 5 detik sekali
-h. Menggunakan thread, socket, shared memory
+2.Pada suatu hari ada orang yang ingin berjualan 1 jenis barang secara private, dia memintamu membuat program C dengan spesifikasi sebagai berikut:
+a.Terdapat 2 server: server penjual dan server pembeli
+b.1 server hanya bisa terkoneksi dengan 1 client
+c.Server penjual dan server pembeli memiliki stok barang yang selalu sama
+d.Client yang terkoneksi ke server penjual hanya bisa menambah stok
+■Cara menambah stok: client yang terkoneksi ke server penjual mengirim string “tambah” ke server lalu stok bertambah 1
+e.Client yang terkoneksi ke server pembeli hanya bisa mengurangi stok
+■Cara mengurangi stok: client yang terkoneksi ke server pembeli mengirim string “beli” ke server lalu stok berkurang 1
+f.Server pembeli akan mengirimkan info ke client yang terhubung dengannya apakah transaksi berhasil atau tidak berdasarkan ketersediaan stok
+■Jika stok habis maka client yang terkoneksi ke server pembeli akan mencetak “transaksi gagal”
+■Jika stok masih ada maka client yang terkoneksi ke server pembeli akan mencetak “transaksi berhasil”
+g.Server penjual akan mencetak stok saat ini setiap 5 detik sekali
+h.Menggunakan thread, socket, shared memory
 ### Jawab
-a. Server penjual
+1. Server penjual
 Pada thread pertama terdapat perulangan untuk menerima pesan dan ketika pesan bertuliskan "tambah", maka stok akan ditambah
 ```c
  while(1){
@@ -103,7 +103,7 @@ while(1){
   }
 ```
 
-b. Server pembeli
+2. Server pembeli
 Pada client pembeli menjalankan perulangan untuk menerima pesan dari client pembeli. Ketika pesan berupa "beli" maka stok akan dikurangi satu. Ketika stok lebih dari 0, maka cetak "transaksi berhasil", jika tidak cetak "transaksi gagal"
 ```c
 while(1){
@@ -120,7 +120,7 @@ else{
    }
 ```
 
-c. Client penjual
+3. Client penjual
 Hanya mengirim pesan untuk menambah stok
 ```c
 while(1){
@@ -129,7 +129,7 @@ while(1){
   }
 ```
 
-d. Client pembeli
+4. Client pembeli
 Mengirim pesan "beli" dan menerima pesan balasan dari server pembeli
 ```c
 while(1){
@@ -147,24 +147,26 @@ else{
 ```
 ## Nomor 3
 ### Soal
-Agmal dan Iraj merupakan 2 sahabat yang sedang kuliah dan hidup satu kostan, sayangnya mereka mempunyai gaya hidup yang berkebalikan, dimana Iraj merupakan laki-laki yang sangat sehat,rajin berolahraga dan bangun tidak pernah kesiangan sedangkan Agmal hampir menghabiskan setengah umur hidupnya hanya untuk tidur dan ‘ngoding’. Dikarenakan mereka sahabat yang baik, Agmal dan iraj sama-sama ingin membuat satu sama lain mengikuti gaya hidup mereka dengan cara membuat Iraj sering tidur seperti Agmal, atau membuat Agmal selalu bangun pagi seperti Iraj. Buatlah suatu program C untuk menggambarkan kehidupan mereka dengan spesifikasi sebagai berikut:
-a. Terdapat 2 karakter Agmal dan Iraj
-b. Kedua karakter memiliki status yang unik
-1. Agmal mempunyai WakeUp_Status, di awal program memiliki status 0
-2. Iraj memiliki Spirit_Status, di awal program memiliki status 100
-3. Terdapat 3 Fitur utama
-	a. All Status, yaitu menampilkan status kedua sahabat
-	Ex: Agmal WakeUp_Status = 75 
-      	Iraj Spirit_Status = 30
-	b. “Agmal Ayo Bangun” menambah WakeUp_Status Agmal sebesar 15 point
-	c. “Iraj Ayo Tidur” mengurangi Spirit_Status Iraj sebanyak 20 point
-4. Terdapat Kasus yang unik dimana:
-	a. Jika Fitur “Agmal Ayo Bangun” dijalankan sebanyak 3 kali, maka Fitur “Iraj Ayo Tidur” Tidak bisa dijalankan selama 10 detik 		(Dengan mengirim pesan ke sistem “Fitur Iraj Ayo Tidur disabled 10 s”)
-	b. Jika Fitur  “Iraj Ayo Tidur” dijalankan sebanyak 3 kali, maka Fitur “Agmal Ayo Bangun” Tidak bisa dijalankan selama 10 detik 	(Dengan mengirim pesan ke sistem “Agmal Ayo Bangun disabled 10 s”)
-5. Program akan berhenti jika Salah Satu :
-	a. WakeUp_Status Agmal >= 100 (Tampilkan Pesan “Agmal Terbangun,mereka bangun pagi dan berolahraga”)
-	b. Spirit_Status Iraj <= 0 (Tampilkan Pesan “Iraj ikut tidur, dan bangun kesiangan bersama Agmal”)
+3.Agmal dan Iraj merupakan 2 sahabat yang sedang kuliah dan hidup satu kostan, sayangnya mereka mempunyai gaya hidup yang berkebalikan, dimana Iraj merupakan laki-laki yang sangat sehat,rajin berolahraga dan bangun tidak pernah kesiangan sedangkan Agmal hampir menghabiskan setengah umur hidupnya hanya untuk tidur dan ‘ngoding’. Dikarenakan mereka sahabat yang baik, Agmal dan iraj sama-sama ingin membuat satu sama lain mengikuti gaya hidup mereka dengan cara membuat Iraj sering tidur seperti Agmal, atau membuat Agmal selalu bangun pagi seperti Iraj. Buatlah suatu program C untuk menggambarkan kehidupan mereka dengan spesifikasi sebagai berikut:
+a.Terdapat 2 karakter Agmal dan Iraj
+b.Kedua karakter memiliki status yang unik
+■Agmal mempunyai WakeUp_Status, di awal program memiliki status 0
+■Iraj memiliki Spirit_Status, di awal program memiliki status 100
+■Terdapat 3 Fitur utama
+●All Status, yaitu menampilkan status kedua sahabat
+Ex: Agmal WakeUp_Status = 75 
+      Iraj Spirit_Status = 30
+●“Agmal Ayo Bangun” menambah WakeUp_Status Agmal sebesar 15 point
+●“Iraj Ayo Tidur” mengurangi Spirit_Status Iraj sebanyak 20 point
+■Terdapat Kasus yang unik dimana:
+●Jika Fitur “Agmal Ayo Bangun” dijalankan sebanyak 3 kali, maka Fitur “Iraj Ayo Tidur” Tidak bisa dijalankan selama 10 detik (Dengan mengirim pesan ke sistem “Fitur Iraj Ayo Tidur disabled 10 s”)
+●Jika Fitur  “Iraj Ayo Tidur” dijalankan sebanyak 3 kali, maka Fitur “Agmal Ayo Bangun” Tidak bisa dijalankan selama 10 detik (Dengan mengirim pesan ke sistem “Agmal Ayo Bangun disabled 10 s”)
+■Program akan berhenti jika Salah Satu :
+●WakeUp_Status Agmal >= 100 (Tampilkan Pesan “Agmal Terbangun,mereka bangun pagi dan berolahraga”)
+●Spirit_Status Iraj <= 0 (Tampilkan Pesan “Iraj ikut tidur, dan bangun kesiangan bersama Agmal”)
 
+
+■Syarat Menggunakan Lebih dari 1 Thread
 
 6. Syarat Menggunakan Lebih dari 1 Thread
 ### Jawab
