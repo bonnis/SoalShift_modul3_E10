@@ -74,7 +74,6 @@ int main()
       }
       else if(input ==2){
           z=1;
-   printf("masuk sini\n");
           pthread_create(&thread2, NULL, fungsi, &status);
       }
     
