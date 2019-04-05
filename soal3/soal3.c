@@ -9,12 +9,9 @@
 pthread_t thread1, thread2;  //thread 1 : agmal, thread2 : iraj
 int flagA=0, flagI=0, berhentiI=0, berhentiA=0, z;
 
-
 typedef struct{
   int agmal, iraj;
 }fitur;
-
-
 
 void * fungsi (void* ptr){
   pthread_t id = pthread_self();
@@ -94,20 +91,4 @@ int main()
       }
    }
     exit(EXIT_SUCCESS);
-}
-
-
-	int i;
-	printf("Masukkan nilai T : ");
-	scanf("%d", &T);
-	printf("Masukkan nilai N : ");
-	scanf("%d", &N);
-	for (i=0;i<T;i++)
-	{
-		pthread_t tid[i];
-		pthread_create(&(tid[i]),NULL,fungsi,NULL);
-		pthread_join(tid[i],NULL);
-	}
- 
-    	return 0;
 }
