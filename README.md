@@ -168,3 +168,16 @@ Ex: Agmal WakeUp_Status = 75
 
 ■Syarat Menggunakan Lebih dari 1 Thread
 ### Jawab
+
+
+
+##Nomor 4
+###Soal
+
+###Jawab
+
+
+##Nomor 5
+###Soal
+
+###Jawab

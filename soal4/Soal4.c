@@ -14,7 +14,7 @@ void* proses(void *arg)
     if(pthread_equal(id,tid[0]))
 	{
         system("ps -aux | tail -n10 >> /home/bonnis/Documents/FolderProses1/SimpanProses1.txt");
-        system("zip -q /home/bonnis/Documents/FolderProses1/KompresProses1.zip /home/bonnis/Documents/FolderProses1/SimpanProses1.txt");
+        system("zip -j -q /home/bonnis/Documents/FolderProses1/KompresProses1.zip /home/bonnis/Documents/FolderProses1/SimpanProses1.txt");
         system("rm /home/bonnis/Documents/FolderProses1/SimpanProses1.txt");
         system("echo Menunggu 15 detik untuk mengekstrak kembali");
         sleep(15);
@@ -23,7 +23,7 @@ void* proses(void *arg)
     if(pthread_equal(id,tid[1]))
 	{
         system("ps -aux | tail -n10 >> /home/bonnis/Documents/FolderProses2/SimpanProses2.txt");
-        system("zip -q /home/bonnis/Documents/FolderProses2/KompresProses2.zip /home/bonnis/Documents/FolderProses2/SimpanProses2.txt");
+        system("zip -j -q /home/bonnis/Documents/FolderProses2/KompresProses2.zip /home/bonnis/Documents/FolderProses2/SimpanProses2.txt");
         system("rm /home/bonnis/Documents/FolderProses2/SimpanProses2.txt");
         system("echo Menunggu 15 detik untuk mengekstrak kembali");
         sleep(15);
